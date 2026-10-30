@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Escaños del Parlamento Europeo</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 25px; color: #222; }
+  h1 { font-size: 24px; }
+  .matriz { display: grid; grid-template-columns: repeat(30, 12px); gap: 4px; margin: 22px 0; }
+  .punto { width: 12px; height: 12px; border-radius: 50%; }
+  .leyenda { max-width: 900px; }
+  .item { display: inline-block; width: 190px; margin-bottom: 8px; font-size: 13px; }
+  .color { display: inline-block; width: 11px; height: 11px; margin-right: 6px; border-radius: 50%; }
+  small { color: #555; }
+</style>
+</head>
+<body>
+<h1>Escaños del Parlamento Europeo (2024–2029)</h1>
+<p>Distribución de 720 escaños entre los 27 países de la Unión Europea.</p>
+<p><strong>Cada punto representa un escaño.</strong></p>
+<div id="matriz" class="matriz"></div>
+<h2>Países y escaños</h2>
+<div id="leyenda" class="leyenda"></div>
+<p><small>Fuente: Consejo Europeo, composición del Parlamento Europeo para 2024–2029.</small></p>
+<script>
+// Datos: país y número de escaños
+const datos = [["Bélgica", 22], ["Bulgaria", 17], ["República Checa", 21], ["Dinamarca", 15], ["Alemania", 96], ["Estonia", 7], ["Irlanda", 14], ["Grecia", 21], ["España", 61], ["Francia", 81], ["Croacia", 12], ["Italia", 76], ["Chipre", 6], ["Letonia", 9], ["Lituania", 11], ["Luxemburgo", 6], ["Hungría", 21], ["Malta", 6], ["Países Bajos", 31], ["Austria", 20], ["Polonia", 53], ["Portugal", 21], ["Rumanía", 33], ["Eslovenia", 9], ["Eslovaquia", 15], ["Finlandia", 15], ["Suecia", 21]];
+const matriz = document.getElementById('matriz');
+const leyenda = document.getElementById('leyenda');
+
+for (let i = 0; i < datos.length; i++) {
+  const pais = datos[i][0];
+  const escanos = datos[i][1];
+  const color = `hsl(${Math.round(i * 360 / datos.length)}, 60%, 43%)`;
+
+  // Dibujar un círculo por cada escaño
+  for (let j = 0; j < escanos; j++) {
+    const punto = document.createElement('div');
+    punto.className = 'punto';
+    punto.style.backgroundColor = color;
+    punto.title = pais;
+    matriz.appendChild(punto);
+  }
+
+  // Añadir el país a la leyenda
+  const item = document.createElement('div');
+  item.className = 'item';
+  item.innerHTML = `<span class="color" style="background:${color}"></span>${pais}: ${escanos}`;
+  leyenda.appendChild(item);
+}
+</script>
+</body>
+</html>
